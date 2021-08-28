@@ -1,27 +1,91 @@
 // TODO: Declare any global variables we need
+let numOfHeads = 0;
+let numOfTails = 0;
+let totalNumOfFlips = 0;
+
+const heads = 1;
+const tails = 0; 
+
+let percentOfHeads = 0;
+let percentOfTails = 0;
+
+
+// ? maybe a max percentage??
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    // This is just a sanity check to make sure your JavaScript script is getting loaded
-    // You can remove it once you see it in your browser console in the developer tools
-    console.log('Hi')
+    
+    //  Add event listener and handler for flip and clear buttons
 
-    // TODO: Add event listener and handler for flip and clear buttons
+        // get the buttons 
+     const flipButton = document.querySelector('#flip');
+     const clearButton = document.querySelector('#clear');
+     const pennyImage = document.querySelector('#penny-image');
+     const status = document.querySelector('#message')
+     const headsDisplay = document.querySelector('#heads')
+     const tailsDisplay = document.querySelector('#tails')
+     const headsPercentageDisplay = document.querySelector('#heads-percent')
+     const tailsPercentageDisplay = document.querySelector('#tails-percent')
 
-    // Flip Button Click Handler
-        // TODO: Determine flip outcome
-        // TODO: Update image and status message in the DOM
+     function setImageToHeads(){
+         return  pennyImage.setAttribute('src', './assets/images/penny-heads.jpg');
+     }
 
-        // Update the scorboard
-        // TODO: Calculate the total number of rolls/flips
-        // Make variables to track the percentages of heads and tails
-        // TODO: Use the calculated total to calculate the percentages
-        // HINT: Make sure not to divide by 0! (if total is 0, percent will be 0 as well)
-        // TODO: Update the display of each table cell
+        //  add event listener to button
+    flipButton.addEventListener('click', function() {
+         //  Determine flip outcome
+         const outcome = Math.round(Math.random());
+         console.log('outcome', outcome)
 
 
-    // Clear Button Click Handler
-        // TODO: Reset global variables to 0
-        // TODO: Update the scoreboard (same logic as in flip button click handler)
+
+        if(outcome === heads){
+            setImageToHeads();
+            status.textContent = "You Flipped Heads";
+            numOfHeads++;
+            headsDisplay.textContent = numOfHeads;
+        } else {
+            pennyImage.setAttribute('src', './assets/images/penny-tails.jpg');
+            status.textContent = "You Flipped Tails";
+            numOfTails++;
+            tailsDisplay.textContent = numOfTails;
+        }
+
+        console.log('heads count', numOfHeads)
+        console.log('tails count', numOfTails)
+        // THIS IS IMPORTANT 
+        totalNumOfFlips = numOfHeads + numOfTails
+        percentOfHeads = Math.round((numOfHeads / totalNumOfFlips) * 100)
+        percentOfTails = Math.round((numOfTails / totalNumOfFlips) * 100)
+        console.log('percentOfHeads',percentOfHeads)
+        console.log('percentOfTails',percentOfTails)
+        console.log('totalNumOfFlips', totalNumOfFlips)
+
+        // headsPercentageDisplay.textContent = headsPercentageDisplay + '%' 
+        headsPercentageDisplay.textContent = `${percentOfHeads}%`
+        tailsPercentageDisplay.textContent = `${percentOfTails}%`
+        // 100 + '%'  "100%"
+
+    })
+
+    clearButton.addEventListener('click', function(){
+       // TODO: Reset global variables to 0
+    //    window.location.reload();
+    numOfHeads= 0;
+    headsDisplay.textContent = numOfHeads;
+    numOfTails=0;
+    tailsDisplay.textContent = numOfTails;
+    percentOfHeads=0;
+    headsPercentageDisplay.textContent = `${percentOfHeads}%`
+    percentOfTails =0;
+    tailsPercentageDisplay.textContent = `${percentOfTails}%`
+    totalNumOfFlips= 0;
+    status.textContent = "Let's Get Rolling!"
+    setImageToHeads()
+    })
+
+     
+
+    
 
 })
